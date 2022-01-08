@@ -19,11 +19,7 @@ pipeline {
     }
     
     stages {
-	stage('Quality check') {
-            steps {
-                sh 'mvn clean verify sonar:sonar -Dsonar.projectKey=TimeSheet -Dsonar.host.url=http://localhost:9000 -Dsonar.login=0f54b6305251984877f917f22b578d34ecb190ec'
-            }
-        }
+	
         stage('Build') {
             steps {
                 sh 'mvn -B -DskipTests clean'
