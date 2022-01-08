@@ -18,17 +18,17 @@ pipeline {
     stages {
 	stage('Quality check') {
             steps {
-                bat 'mvn sonar:sonar -Dsonar.host.url=http://localhost:9000 -Dsonar.login=11807b22879950e9cc1a90e05b7b7b5c4cb253d4'
+                sh 'mvn sonar:sonar -Dsonar.host.url=http://localhost:9000 -Dsonar.login=11807b22879950e9cc1a90e05b7b7b5c4cb253d4'
             }
         }
         stage('Build') {
             steps {
-                bat 'mvn -B -DskipTests clean'
+                sh 'mvn -B -DskipTests clean'
             }
         }
         stage('Test') {
             steps {
-                bat 'mvn test'
+                sh 'mvn test'
             }
             post {
                 always {
@@ -39,7 +39,7 @@ pipeline {
         
         stage('Nexus Repository') {
             steps {
-                bat 'mvn clean package deploy:deploy-file -DgroupId=tn.esprit -DartifactId=timesheet-ci -Dversion=6.2 -DgeneratePom=true -Dpackaging=jar -DrepositoryId=deploymentRepo -Durl=http://localhost:8081/repository/maven-releases/ -Dfile=target/timesheet-ci-1.0.jar'
+                sh 'mvn clean package deploy:deploy-file -DgroupId=tn.esprit -DartifactId=timesheet-ci -Dversion=6.2 -DgeneratePom=true -Dpackaging=jar -DrepositoryId=deploymentRepo -Durl=http://localhost:8081/repository/maven-releases/ -Dfile=target/timesheet-ci-1.0.jar'
             }
         }
     }
