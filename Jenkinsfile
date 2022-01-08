@@ -1,6 +1,9 @@
 pipeline {
     agent any
-    
+       tools {
+        // Install the Maven version configured as "M3" and add it to the path.
+        maven "M3"
+    }
     environment {
         // This can be nexus3 or nexus2 server
         NEXUS_VERSION = "nexus3"
